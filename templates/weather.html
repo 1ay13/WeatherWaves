@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>What's the weather like?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+</head>
+
+<body class="bg-gray-100 text-gray-700 font-sans">
+<!-- Header Section -->
+<header class=" text-white text-left">
+    <section class="hero is-primary is-bold">
+        <div class="container">
+            <div class="hero-body flex items-center justify-between">
+                <div>
+                    <!-- WeatherWaves -->
+                    <h1 class="title text-2xl font-bold">WeatherWaves</h1>
+                    <!-- Date and Time -->
+                    <p class="subtitle" id="dateAndTime"></p>
+                </div>
+                <div>
+                    <!-- Login Details -->
+                    <!-- You can customize this part based on your login system -->
+                    <!-- For example, display the username or a login/logout button -->
+                    <p class="subtitle">Welcome, John Doe | <a href="/logout">Logout</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
+
+
+<!-- Main Content -->
+<main class="p-8">
+    <!-- Form Section -->
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column md:offset-4 md:col-4">
+                    <!-- Form for Adding City -->
+                    <form method="POST" class="max-w-2xl mx-auto">
+                        <!-- Form Field with Add Button -->
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input class="input" name="city" type="text" placeholder="City Name"
+                                       style="text-transform: capitalize;">
+                            </div>
+                            <div class="control">
+                                <button class="button is-info w-full bg-blue-700 border-blue-700 hover:bg-indigo-700 hover:border-indigo-700 transition duration-300">
+                                    Add City
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Flash Messages -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% set message_class = 'is-success' %}
+                        {% if category == 'error' %}
+                        {% set message_class = 'is-danger' %}
+                        {% endif %}
+                        <div class="notification {{ message_class }}">{{ message }}</div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Display Weather Section -->
+    <section class="section">
+        <div class="container">
+            <div class="flex flex-wrap">
+                {% for weather in weather_data %}
+                <!-- Weather Box for Each City -->
+                <div class="w-full md:w-1/3 p-4 {% if loop.first %}md:w-2/3 md:order-first{% endif %}">
+                    <div class="box rounded-lg shadow-md bg-white transform transition-transform duration-300 hover:scale-103 hover:shadow-lg">
+                        <article class="media">
+                            <!-- Left Section with Weather Icon -->
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png"
+                                         alt="Weather Icon">
+                                </figure>
+                            </div>
+                            <!-- Center Section with Weather Details -->
+                            <div class="media-content ml-4">
+                                <div class="content">
+                                    <p class="weather-info">
+                                        <span class="title text-lg">{{ weather.city }}</span>
+                                        <br>
+                                        <span class="subtitle text-md">
+                <i class="fas fa-thermometer-half"></i> {{ weather.temperature }}° C
+            </span>
+                                        <br>
+                                        <span class="description">
+                <i class="fas fa-cloud-sun"></i> {{ weather.description }}
+            </span>
+                                        <br>
+                                        <span class="detail">
+                <i class="fas fa-temperature-high"></i> Feels Like: {{ weather.Feels_like }}° C
+            </span>
+                                        <br>
+                                        <span class="detail">
+                <i class="fas fa-temperature-low"></i> Min Temperature: {{ weather.temperature_min }}° C
+            </span>
+                                        <br>
+                                        <span class="detail">
+                <i class="fas fa-temperature-high"></i> Max Temperature: {{ weather.temperature_max }}° C
+            </span>
+                                        <br>
+                                        <span class="detail">
+                <i class="fas fa-tachometer-alt"></i> Pressure: {{ weather.pressure }} hPa
+            </span>
+                                        <br>
+                                        <span class="detail">
+                <i class="fas fa-tint"></i> Humidity: {{ weather.humidity }}%
+            </span>
+                                        <br>
+                                        <span class="timestamp">
+                <i class="fas fa-clock"></i> Timestamp: {{ weather.timestamp }}
+            </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Right Section with Delete Button -->
+                            <div class="media-right">
+                                <a href="{{ url_for('delete_city', name=(weather.city)) }}">
+                                    <button class="delete text-2xl text-red-500 transition duration-300"></button>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer Section -->
+<footer class="bg-blue-900 text-white py-4 text-center">
+    <div class="container">
+        <div class="content has-text-centered">
+            <!-- Social Media Links or Additional Information -->
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript Section -->
+<script>
+        // Add your JavaScript functions here for confirmation modal and other features
+
+        // Sample JavaScript Functions (Replace with your own logic)
+        function showDeleteConfirmation(city) {
+            document.getElementById(`delete-modal-${city}`).style.display = 'block';
+        }
+
+        function hideDeleteConfirmation(city) {
+            document.getElementById(`delete-modal-${city}`).style.display = 'none';
+        }
+
+        function deleteCity(city) {
+            // Perform deletion logic
+            console.log(`Deleting city: ${city}`);
+        }
+        function updateDateAndTime() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
+        const formattedDateTime = now.toLocaleDateString('en-US', options);
+        document.getElementById('dateAndTime').textContent = formattedDateTime;
+    }
+
+    // Update date and time every second
+    setInterval(updateDateAndTime, 1000);
+
+    // Initial update
+    updateDateAndTime();
+
+</script>
+</body>
+
+</html>
