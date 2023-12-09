@@ -1,0 +1,38 @@
+<p class="weather-info">
+    <span class="text-white title text-7xl drop-shadow-[0_0.9px_0.9px_rgba(0,0,0,0.8)]">{{ weather.city }}</span>
+    <span class="text-5xl text-white subtitle text-md">
+                                                <i class="fas fa-thermometer-half"></i> {{ weather.temperature }}° C
+                                            </span>
+    <br>
+    <span class="description text-md text-gray-700">
+                                                <i class="fas fa-cloud-sun"></i> {{ weather.description }}
+                                            </span>
+    <br>
+    <span class="detail text-sm text-gray-700">
+                                                <i class="fas fa-temperature-high"></i> Feels Like: {{ weather.Feels_like }}° C
+                                            </span>
+    <br>
+    <span class="detail text-sm text-gray-700">
+                                                <i class="fas fa-temperature-low"></i> Min Temperature: {{ weather.temperature_min }}° C
+                                            </span>
+    <br>
+    <span class="detail text-sm text-gray-700">
+                                                <i class="fas fa-temperature-high"></i> Max Temperature: {{ weather.temperature_max }}° C
+                                            </span>
+    <br>
+    <span class="detail text-sm text-gray-700">
+                                                <i class="fas fa-tachometer-alt"></i> Pressure: {{ weather.pressure }} hPa
+                                            </span>
+    <br>
+    <span class="detail text-sm text-gray-700">
+                                                <i class="fas fa-tint"></i> Humidity: {{ weather.humidity }}%
+                                            </span>
+    <br>
+    <span class="timestamp text-sm text-gray-700">
+                                                <i class="fas fa-clock"></i> Timestamp: {{ weather.timestamp }}
+                                            </span>
+</p>
+
+
+
+

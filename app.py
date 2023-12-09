@@ -85,6 +85,39 @@ def delete_city( name ):
     flash(f'Successfully deleted { city.name }!', 'success')
     return redirect(url_for('index_get'))
 
+@app.route('/city/<name>')
+def city_weather(name):
+    city = City.query.filter_by(name=name).first()
+    if not city:
+        flash('City not found!', 'error')
+        return redirect(url_for('index_get'))
+
+    weather_data = get_weather_data(city.name)
+
+    if weather_data['cod'] == 200:
+        timestamp = weather_data['dt']
+        dt_object = datetime.utcfromtimestamp(timestamp)
+        weather = {
+            'city': city.name,
+            'temperature': weather_data['main']['temp'],
+            'description': weather_data['weather'][0]['description'],
+            'icon': weather_data['weather'][0]['icon'],
+            'Feels_like': weather_data['main']['feels_like'],
+            'temperature_min': weather_data['main']['temp_min'],
+            'temperature_max': weather_data['main']['temp_max'],
+            'pressure': weather_data['main']['pressure'],
+            'humidity': weather_data['main']['humidity'],
+            'wind_speed': weather_data['wind']['speed'],
+            'timestamp': dt_object,
+        }
+    else:
+        flash('Failed to retrieve weather data for the city!', 'error')
+        return redirect(url_for('index_get'))
+
+    return render_template('city_weather.html', weather=weather)
+
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
