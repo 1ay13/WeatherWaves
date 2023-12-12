@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 </head>
 
-<body id="mainBackgroun"
+<body id="mainBackground"
       style="background-image: url('https://source.unsplash.com/xtgONQzGgOE'); background-size: cover; background-position: center; background-repeat: no-repeat;"
       class="text-white font-sans h-screen">
 <!-- Main Content -->
@@ -111,10 +111,13 @@
                             {% if loop.last %}
                             <h1 class="text-white text-7xl">Hi, {{ weather.city }}</h1>
                             <div class="flex justify-between">
-                                <div>
+                                <div class="bg-blac bg-opacity-10">
                                     <h3 class="mt-10 mb-2 text-6xl">{{weather.main}} Expected</h3>
                                     <p class="text-4xl mb-2">with {{weather.description}}</p>
-                                    <p>Some texts that maybe seem useful but it is not.</p>
+                                    <p>Temperature goes as high as {{weather.temperature_max}} and as low as
+                                        {{weather.temperature_min}}.</p>
+                                    <p>Wind is flowing in {{weather.wind_dir}} degree direction at the speed of
+                                        {{weather.wind_speed}}</p>
                                 </div>
                                 <div class="mt-4">
                                     <div class="flex gap-3 items-end justify-between">
@@ -216,33 +219,29 @@ setInterval(updateDateAndTime, 1000);
 // Initial update
 updateDateAndTime();
 
-function imageHandler(main) {
+  function imageHandler(main) {
     const body = document.getElementById('mainBackground');
     let imageUrl;
 
     switch (main.toLowerCase()) {
       case 'thunderstorm':
-        imageUrl = 'your_image_base_url/image1.jpg';
+        imageUrl = 'https://example.com/image1.jpg';
         break;
       case 'drizzle':
+         imageUrl = 'https://example.com/image1.jpg';
       case 'rain':
-        imageUrl = 'your_image_base_url/image2.jpg';
+        imageUrl = 'https://example.com/image2.jpg';
         break;
-      case 'snow':
-        imageUrl = 'https://source.unsplash.com/xtgONQzGgOE';
+      case 'clouds':
+        imageUrl = 'https://source.unsplash.com/nW3diVSG3wQ';
         break;
-      // Add more cases for other conditions if needed
       default:
-        // Default image for unknown conditions
         imageUrl = 'https://source.unsplash.com/xtgONQzGgOE';
     }
 
     body.style.backgroundImage = `url('${imageUrl}')`;
   }
 
-  // Example usage:
-  const userInput = "thunderstorm"; // Replace with the actual user input
-  imageHandler(userInput);
 
 
 

@@ -44,6 +44,7 @@ def index_get():
             'pressure': r['main']['pressure'],
             'humidity': r['main']['humidity'],
             'wind_speed': r['wind']['speed'],
+            'wind_dir': r['wind']['deg'],
             'lat': r['coord']['lat'],
             'lon': r['coord']['lon'],
             'timestamp': dt_object
@@ -113,6 +114,7 @@ def city_weather(name):
             'pressure': weather_data['main']['pressure'],
             'humidity': weather_data['main']['humidity'],
             'wind_speed': weather_data['wind']['speed'],
+            'wind_dir': weather_data['wind']['deg'],
             'lat': weather_data['coord']['lat'],
             'lon': weather_data['coord']['lon'],
             'timestamp': dt_object,
