@@ -1,5 +1,4 @@
 Flask
 requests
-string
 datetime
 flask_sqlalchemy
