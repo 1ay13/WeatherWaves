@@ -16,8 +16,8 @@
 </head>
 
 <body id="mainBackground"
-      style="background-image: url('https://source.unsplash.com/xtgONQzGgOE'); background-size: cover; background-position: center; background-repeat: no-repeat;"
-      class="text-white font-sans h-screen">
+      style="background-image: url('https://source.unsplash.com/xtgONQzGgOE'); background-size: cover; background-repeat: repeat-y;"
+      class="text-white font-sans min-h-screen">
 <!-- Main Content -->
 <main class="">
     <!-- Header Section -->
@@ -45,7 +45,6 @@
 
                 <div>
                     <p class="text-white" id="dateAndTime"></p>
-
                 </div>
                 <div>
                     <!-- Login Details -->
@@ -91,7 +90,9 @@
                 {% if category == 'error' %}
                 {% set message_class = 'is-danger' %}
                 {% endif %}
-                <div class="w-full p-1 bg-green-400 bg-opacity-20 notification {{ message_class }}">{{ message }}</div>
+                <div class="w-full p-1 bg-green-400 bg-opacity-20 notification {{ message_class }}" id="notificationDiv"
+                >{{ message }}
+                </div>
                 {% endfor %}
                 {% endif %}
                 {% endwith %}
@@ -108,7 +109,7 @@
                 <div class="w-full md:w-1/2 md:w-full">
                     <div class="">
                         <article class="">
-                            {% if loop.last %}
+                            {% if loop %}
                             <h1 class="text-white text-7xl">Hi, {{ weather.city }}</h1>
                             <div class="flex justify-between">
                                 <div class="bg-blac bg-opacity-10">
@@ -225,12 +226,12 @@ updateDateAndTime();
 
     switch (main.toLowerCase()) {
       case 'thunderstorm':
-        imageUrl = 'https://example.com/image1.jpg';
+        imageUrl = 'https://source.unsplash.com/nW3diVSG3wQ';
         break;
       case 'drizzle':
-         imageUrl = 'https://example.com/image1.jpg';
+         imageUrl = 'https://source.unsplash.com/nW3diVSG3wQ';
       case 'rain':
-        imageUrl = 'https://example.com/image2.jpg';
+        imageUrl = 'https://source.unsplash.com/nW3diVSG3wQ';
         break;
       case 'clouds':
         imageUrl = 'https://source.unsplash.com/nW3diVSG3wQ';
@@ -242,7 +243,15 @@ updateDateAndTime();
     body.style.backgroundImage = `url('${imageUrl}')`;
   }
 
+  const notificationDiv = document.getElementById('notificationDiv');
 
+  // Check if the notification element exists before setting a timeout
+  if (notificationDiv) {
+    // Set a timeout to hide the notification after 10 seconds (10000 milliseconds)
+    setTimeout(() => {
+      notificationDiv.style.display = 'none';
+    }, 4000);
+  }
 
 
 </script>
