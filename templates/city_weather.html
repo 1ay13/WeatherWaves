@@ -1,38 +1,64 @@
-<p class="weather-info">
-    <span class="text-white title text-7xl drop-shadow-[0_0.9px_0.9px_rgba(0,0,0,0.8)]">{{ weather.city }}</span>
-    <span class="text-5xl text-white subtitle text-md">
-                                                <i class="fas fa-thermometer-half"></i> {{ weather.temperature }}° C
-                                            </span>
-    <br>
-    <span class="description text-md text-gray-700">
-                                                <i class="fas fa-cloud-sun"></i> {{ weather.description }}
-                                            </span>
-    <br>
-    <span class="detail text-sm text-gray-700">
-                                                <i class="fas fa-temperature-high"></i> Feels Like: {{ weather.Feels_like }}° C
-                                            </span>
-    <br>
-    <span class="detail text-sm text-gray-700">
-                                                <i class="fas fa-temperature-low"></i> Min Temperature: {{ weather.temperature_min }}° C
-                                            </span>
-    <br>
-    <span class="detail text-sm text-gray-700">
-                                                <i class="fas fa-temperature-high"></i> Max Temperature: {{ weather.temperature_max }}° C
-                                            </span>
-    <br>
-    <span class="detail text-sm text-gray-700">
-                                                <i class="fas fa-tachometer-alt"></i> Pressure: {{ weather.pressure }} hPa
-                                            </span>
-    <br>
-    <span class="detail text-sm text-gray-700">
-                                                <i class="fas fa-tint"></i> Humidity: {{ weather.humidity }}%
-                                            </span>
-    <br>
-    <span class="timestamp text-sm text-gray-700">
-                                                <i class="fas fa-clock"></i> Timestamp: {{ weather.timestamp }}
-                                            </span>
-</p>
+<section class="">
+        <div class="container">
+            <div class="flex flex-wrap">
+                {% for weather in weather_data %}
+                <!-- Weather Box for Each City -->
+                <div class="w-full md:w-1/2 p-2 md:w-full">
+                    <div class=" ">
+                        <article class="">
+                            <h1 class="text-white text-7xl drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">Hi, {{
+                                weather.city }}</h1>
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="mt-10 mb-2 text-7xl">Stromy Weather</h3>
+                                    <p class="text-5xl mb-2">With heavy Rain</p>
+                                    <p>Some texts that maybe seems like useful but it is not.</p>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="flex gap-3 items-end 	">
+                                        <div class="space-y-2">
+                                            <p class="text-[10px] bg-black text-white rounded-xl px-4 bg-opacity-10 py-1">
+                                                Lat Long</p>
+                                            <p class="text-[10px] bg-black text-white rounded-xl px-4 bg-opacity-10 py-1">
+                                                Excellent</p>
+                                        </div>
+                                        <p class="-mb-4 flex items-start text-9xl font-extralight">27 <span
+                                                class="border-solid border-2 border-white rounded-full h-4 w-4"></span>
+                                        </p>
+                                    </div>
+                                    <div class="mt-8 text-right">
+                                        <h2 class="text-xl text-right italic">But that feels like</h2>
+                                        <h2 class="text-7xl ">{{ weather.Feels_like }}° C</h2>
+                                    </div>
+                                    <div class="mt-8 text-right">
+                                        <h2 class="text-xl text-right italic">Because, Wind is Blowing at</h2>
+                                        <h2 class="text-7xl ">{{ weather.wind_speed }} m/s</h2>
+                                    </div>
 
 
+<!--                                    <div class="flex flex-col bg-white bg-opacity-30 rounded-t-full rounded-b-full gap-y-5 w-[48px]">-->
+<!--                                        <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center hover:bg-opacity-70">-->
+<!--                                            a</p>-->
+<!--                                        <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center">-->
+<!--                                            b</p>-->
+<!--                                        <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center">-->
+<!--                                            c</p>-->
+<!--                                        <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center">-->
+<!--                                            d</p>-->
+<!--                                    </div>-->
+                                </div>
 
-
+                            </div>
+                            <!-- Right Section with Delete Button -->
+                            <div class="media-right">
+                                <a href="{{ url_for('delete_city', name=(weather.city)) }}">
+                                    <button class="delete text-2xl text-red-500 transition duration-300"></button>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>

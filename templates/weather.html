@@ -8,10 +8,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>WeatherWaves</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-DMp+e6ntF9xdMxZJz2e0H79TkBntYGbVXUf9zRYUqWJdJ8iV3UnvDjnTyJe3eDShQw2BP2TuYJTmAtVXO0xw1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 </head>
 
-<body style="background-image: url('https://source.unsplash.com/xtgONQzGgOE'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+<body id="mainBackgroun"
+      style="background-image: url('https://source.unsplash.com/xtgONQzGgOE'); background-size: cover; background-position: center; background-repeat: no-repeat;"
       class="text-white font-sans h-screen">
 <!-- Main Content -->
 <main class="">
@@ -23,60 +28,73 @@
                     <!-- WeatherWaves -->
                     <h1 class="text-white title text-2xl font-bold">WeatherWaves</h1>
                     <!-- Date and Time -->
-                    <p class="text-white subtitle" id="dateAndTime"></p>
+                </div>
+                <div>
+                    <p class="text-white " id="timeString"></p>
+                </div>
+                <div class="flex bg-white bg-opacity-30 rounded-full overflow-hidden p-1">
+                    <p class="rounded-full bg-black bg-opacity-30 p-3 text-black flex items-center justify-center hover:bg-opacity-70"
+                       style="width: 48px; height: 48px;">
+                        <i class="fas fa-sun text-white fa-inverse"></i>
+                    </p>
+                    <p class="rounded-full p-3 text-black flex items-center justify-center hover:bg-black hover:bg-opacity-70"
+                       style="width: 48px; height: 48px;">
+                        <i class="fas fa-moon text-white fa-inverse"></i>
+                    </p>
+                </div>
+
+                <div>
+                    <p class="text-white" id="dateAndTime"></p>
+
                 </div>
                 <div>
                     <!-- Login Details -->
-                    <!-- You can customize this part based on your login system -->
-                    <!-- For example, display the username or a login/logout button -->
-                    <p class="subtitle text-white">Welcome, John Doe | <a href="/logout">Logout</a></p>
+                    <p class="subtitle text-white">Welcome, Team | <a href="/logout">Logout</a></p>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Form Section -->
+
     <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="max-w-2xl mx-auto">
-                    <!-- Form for Adding City -->
-                    <form method="POST" class="flex w-full mx-auto  items-center">
-                        <div class="relative w-full">
-                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <input style="text-transform: capitalize;" name="city" type="text" id="voice-search"
-                                   class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  "
-                                   placeholder="City Name" required>
-
+        <div class="columns">
+            <div class="flex max-w-full mx-auto">
+                <!-- Form for Adding City -->
+                <form method="POST" class="flex w-full mx-auto items-center">
+                    <div class="relative w-full">
+                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
                         </div>
-                        <button type="submit"
-                                class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-900 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
-                            Search
-                        </button>
-
-                        <!-- Form Field with Add Button -->
-
-
-                        <!-- Flash Messages -->
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                        {% for category, message in messages %}
-                        {% set message_class = 'is-success' %}
-                        {% if category == 'error' %}
-                        {% set message_class = 'is-danger' %}
-                        {% endif %}
-                        <div class="notification {{ message_class }}">{{ message }}</div>
-                        {% endfor %}
-                        {% endif %}
-                        {% endwith %}
-                    </form>
-                </div>
+                        <input style="text-transform: capitalize;" name="city" type="text" id="voice-search"
+                               class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                               placeholder="City Name" required>
+                    </div>
+                    <button type="submit"
+                            class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium  bg-blue-900 rounded-full text-white border border-blue-700 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        <svg class="w-5 h-5 text-white dark:text-gray-400" fill="white"
+                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </form>
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                {% set message_class = 'is-success' %}
+                {% if category == 'error' %}
+                {% set message_class = 'is-danger' %}
+                {% endif %}
+                <div class="w-full p-1 bg-green-400 bg-opacity-20 notification {{ message_class }}">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
             </div>
         </div>
     </section>
@@ -87,34 +105,62 @@
             <div class="flex flex-wrap">
                 {% for weather in weather_data %}
                 <!-- Weather Box for Each City -->
-                <div class="w-full md:w-1/2 p-2 md:w-full">
-                    <div class=" ">
+                <div class="w-full md:w-1/2 md:w-full">
+                    <div class="">
                         <article class="">
+                            {% if loop.last %}
+                            <h1 class="text-white text-7xl">Hi, {{ weather.city }}</h1>
                             <div class="flex justify-between">
-                                <h1 class="text-white text-7xl drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">Hi, {{
-                                    weather.city }}</h1>
+                                <div>
+                                    <h3 class="mt-10 mb-2 text-6xl">{{weather.main}} Expected</h3>
+                                    <p class="text-4xl mb-2">with {{weather.description}}</p>
+                                    <p>Some texts that maybe seem useful but it is not.</p>
+                                </div>
                                 <div class="mt-4">
-                                    <div class="text-right">
-                                        <h2 class="text-xl  italic">Temperature outside is</h2>
-                                        <h2 class="text-7xl ">{{ weather.temperature }}° C</h2>
+                                    <div class="flex gap-3 items-end justify-between">
+                                        <div class="space-y-2">
+                                            <p class="text-[10px] bg-black text-white rounded-xl px-4 bg-opacity-10 py-1">
+                                                {{weather.lat}} {{weather.lon}}</p>
+                                            <p class="flex item-center justify-center text-[10px] bg-black text-white rounded-xl px-4 bg-opacity-10 py-1">
+                                                Excellent</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-xl text-right italic">Current Temperature</p>
+                                            <p class="-mb-4 flex items-start text-9xl font-light">{{
+                                                weather.temperature
+                                                }} <span
+                                                        class="m-2 border-solid border-2 border-white rounded-full h-4 w-4"></span>
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="mt-8 text-right">
                                         <h2 class="text-xl text-right italic">But that feels like</h2>
                                         <h2 class="text-7xl ">{{ weather.Feels_like }}° C</h2>
                                     </div>
                                     <div class="mt-8 text-right">
-                                        <h2 class="text-xl text-right italic">Because, Wind is Blowing at</h2>
+                                        <h2 class="text-xl text-right italic">Because, Wind Speed is</h2>
                                         <h2 class="text-7xl ">{{ weather.wind_speed }} m/s</h2>
                                     </div>
                                 </div>
-
                             </div>
+                            <!--                            <div class="flex flex-col bg-white bg-opacity-30 rounded-t-full rounded-b-full gap-y-5 w-[48px]">-->
+                            <!--                                <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center hover:bg-opacity-70">-->
+                            <!--                                    a</p>-->
+                            <!--                                <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center">-->
+                            <!--                                    b</p>-->
+                            <!--                                <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center">-->
+                            <!--                                    c</p>-->
+                            <!--                                <p class="rounded-full bg-gray-100 p-3 text-black flex item-center justify-center">-->
+                            <!--                                    d</p>-->
+                            <!--                            </div>-->
                             <!-- Right Section with Delete Button -->
                             <div class="media-right">
                                 <a href="{{ url_for('delete_city', name=(weather.city)) }}">
                                     <button class="delete text-2xl text-red-500 transition duration-300"></button>
                                 </a>
                             </div>
+                            {% endif %}
+
                         </article>
                     </div>
                 </div>
@@ -122,13 +168,12 @@
             </div>
         </div>
     </section>
+
 </main>
 
 <!-- JavaScript Section -->
 <script>
-        // Add your JavaScript functions here for confirmation modal and other features
 
-        // Sample JavaScript Functions (Replace with your own logic)
         function showDeleteConfirmation(city) {
             document.getElementById(`delete-modal-${city}`).style.display = 'block';
         }
@@ -142,22 +187,62 @@
             console.log(`Deleting city: ${city}`);
         }
 
-        function updateDateAndTime() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
-            const formattedDateTime = now.toLocaleDateString('en-US', options);
-            document.getElementById('dateAndTime').textContent = formattedDateTime;
-        }
+       function updateDate() {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const formattedDate = now.toLocaleDateString('en-US', options);
+    return formattedDate;
+}
 
-        // Update date and time every second
-        setInterval(updateDateAndTime, 1000);
+function updateTime() {
+    const now = new Date();
+    const options = { hour: 'numeric', minute: 'numeric', timeZoneName: 'short' };
+    const formattedTime = now.toLocaleTimeString('en-US', options);
+    return formattedTime;
+}
 
-        // Initial update
-        updateDateAndTime();
+function updateDateAndTime() {
+    const formattedDate = updateDate();
+    const formattedTime = updateTime();
+    const dateTimeString = `${formattedDate}`;
+    const timeString = `${formattedTime}`
+    document.getElementById('timeString').textContent = timeString;
+    document.getElementById('dateAndTime').textContent = dateTimeString;
+}
 
+// Update date and time every second
+setInterval(updateDateAndTime, 1000);
 
+// Initial update
+updateDateAndTime();
 
+function imageHandler(main) {
+    const body = document.getElementById('mainBackground');
+    let imageUrl;
 
+    switch (main.toLowerCase()) {
+      case 'thunderstorm':
+        imageUrl = 'your_image_base_url/image1.jpg';
+        break;
+      case 'drizzle':
+      case 'rain':
+        imageUrl = 'your_image_base_url/image2.jpg';
+        break;
+      case 'snow':
+        imageUrl = 'https://source.unsplash.com/xtgONQzGgOE';
+        break;
+      // Add more cases for other conditions if needed
+      default:
+        // Default image for unknown conditions
+        imageUrl = 'https://source.unsplash.com/xtgONQzGgOE';
+    }
+
+    body.style.backgroundImage = `url('${imageUrl}')`;
+  }
+
+  // Example usage:
+  const userInput = "thunderstorm"; // Replace with the actual user input
+  imageHandler(userInput);
 
 
 

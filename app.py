@@ -35,6 +35,7 @@ def index_get():
         weather = {
             'city' : city.name,
             'temperature' : r['main']['temp'],
+            'main': r['weather'][0]['main'],
             'description' : r['weather'][0]['description'],
             'icon' : r['weather'][0]['icon'],
             'Feels_like' : r['main']['feels_like'],
@@ -42,6 +43,9 @@ def index_get():
             'temperature_max': r['main']['temp_max'],
             'pressure': r['main']['pressure'],
             'humidity': r['main']['humidity'],
+            'wind_speed': r['wind']['speed'],
+            'lat': r['coord']['lat'],
+            'lon': r['coord']['lon'],
             'timestamp': dt_object
         }
         weather_data.append(weather)
@@ -99,6 +103,7 @@ def city_weather(name):
         dt_object = datetime.utcfromtimestamp(timestamp)
         weather = {
             'city': city.name,
+            'main': weather_data['weather'][0]['main'],
             'temperature': weather_data['main']['temp'],
             'description': weather_data['weather'][0]['description'],
             'icon': weather_data['weather'][0]['icon'],
@@ -108,6 +113,8 @@ def city_weather(name):
             'pressure': weather_data['main']['pressure'],
             'humidity': weather_data['main']['humidity'],
             'wind_speed': weather_data['wind']['speed'],
+            'lat': weather_data['coord']['lat'],
+            'lon': weather_data['coord']['lon'],
             'timestamp': dt_object,
         }
     else:
@@ -115,8 +122,6 @@ def city_weather(name):
         return redirect(url_for('index_get'))
 
     return render_template('city_weather.html', weather=weather)
-
-
 
 if __name__ == "__main__":
     with app.app_context():
